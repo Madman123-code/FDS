@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+#define M 5  // Maximum number of orders
+
+class PizzaParlour {
+private:
+    int orders[M];
+    int front, rear;
+
+public:
+    PizzaParlour() {
+        front = -1;
+        rear = -1;
+    }
+
+    void placeOrder() {
+        if ((front == (rear + 1) % M)) {
+            cout << "Sorry! No more orders can be accepted (Queue Full).\n";
+            return;
+        }
+
+        int orderId;
+        cout << "Enter Order ID to place: ";
+        cin >> orderId;
+
+        if (front == -1 && rear == -1) {
+            front = rear = 0;
+        } else {
+            rear = (rear + 1) % M;
+        }
+
+        orders[rear] = orderId;
+        cout << "Order " << orderId << " placed successfully.\n";
+    }
+
+    void serveOrder() {
+        if (front == -1) {
+            cout << "No orders to serve.\n";
+            return;
+        }
+
+        cout << "Order " << orders[front] << " served.\n";
+
+        if (front == rear) {
+            // Only one order in queue
+            front = rear = -1;
+        } else {
+            front = (front + 1) % M;
+        }
+    }
+
+    void displayOrders() {
+        if (front == -1) {
+            cout << "No orders in the queue.\n";
+            return;
+        }
+
+        cout << "Current orders in queue: ";
+        int i = front;
+        while (true) {
+            cout << orders[i] << " ";
+            if (i == rear)
+                break;
+            i = (i + 1) % M;
+        }
+        cout << "\n";
+    }
+};
+
+int main() {
+    PizzaParlour parlour;
+    int choice;
+
+    do {
+        cout << "\n--- Pizza Parlour Menu ---\n";
+        cout << "1. Place Order\n2. Serve Order\n3. Display Orders\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                parlour.placeOrder();
+                break;
+            case 2:
+                parlour.serveOrder();
+                break;
+            case 3:
+                parlour.displayOrders();
+                break;
+            case 4:
+                cout << "Exiting Pizza Parlour System.\n";
+                break;
+            default:
+                cout << "Invalid choice. Try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
