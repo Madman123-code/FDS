@@ -1,0 +1,28 @@
+def quick_sort_and_display_top_five(percentages):
+    """Quick sort the percentages and print sorted list and top five scores."""
+    def quick_sort(arr):
+        if len(arr) <= 1:
+            return arr
+        else:
+            pivot = arr[0]
+            lesser = [x for x in arr[1:] if x <= pivot]
+            greater = [x for x in arr[1:] if x > pivot]
+            return quick_sort(lesser) + [pivot] + quick_sort(greater)
+
+    sorted_percentages = quick_sort(percentages)
+    
+    print("\nSorted percentages in ascending order:")
+    print(sorted_percentages)
+
+    print("\nTop 5 scores:")
+    top_five = sorted_percentages[-5:][::-1]
+    for i, score in enumerate(top_five, 1):
+        print(f"{i}. {score}%")
+
+# Main Program
+percentages = [72.5, 88.0, 91.5, 65.2, 79.8, 84.6, 90.0, 68.4, 95.0, 77.7]
+
+print("First year percentages of students:")
+print(percentages)
+
+quick_sort_and_display_top_five(percentages)
