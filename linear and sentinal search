@@ -1,0 +1,35 @@
+def linear_search(arr, target):
+    """Linear Search with result printing."""
+    for i in range(len(arr)):
+        if arr[i] == target:
+            print(f"Student with roll number {target} attended the training program (Linear Search).")
+            return
+    print(f"Student with roll number {target} did NOT attend the training program (Linear Search).")
+
+def sentinel_search(arr, target):
+    """Sentinel Search with result printing."""
+    n = len(arr)
+    last = arr[-1]
+    arr[-1] = target  # Sentinel placed
+
+    i = 0
+    while arr[i] != target:
+        i += 1
+
+    arr[-1] = last  # Restore the last value
+
+    if i < n - 1 or arr[-1] == target:
+        print(f"Student with roll number {target} attended the training program (Sentinel Search).")
+    else:
+        print(f"Student with roll number {target} did NOT attend the training program (Sentinel Search).")
+
+# Main program
+roll_numbers = [105, 112, 101, 109, 103, 110, 107, 104]  # Random roll numbers
+
+print("Roll numbers of students who attended training program:")
+print(roll_numbers)
+
+target = int(input("Enter the roll number to search: "))
+
+linear_search(roll_numbers, target)
+sentinel_search(roll_numbers.copy(), target)  # Copy to preserve original list
