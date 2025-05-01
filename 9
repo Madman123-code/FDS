@@ -1,0 +1,64 @@
+from collections import Counter
+
+# Function to compute average of valid (non-absent) scores
+def compute_average(marks):
+    valid_marks = [m for m in marks if m != -1]  # Exclude absentees
+    if not valid_marks:
+        print("No students were present.")
+    else:
+        average = sum(valid_marks) / len(valid_marks)
+        print(f"Average score of the class: {average:.2f}")
+
+# Function to find the highest and lowest marks among present students
+def find_highest_lowest(marks):
+    valid_marks = [m for m in marks if m != -1]  # Exclude absentees
+    if not valid_marks:
+        print("No valid scores to compute highest/lowest.")
+    else:
+        highest = max(valid_marks)
+        lowest = min(valid_marks)
+        print(f"Highest score: {highest}")
+        print(f"Lowest score: {lowest}")
+
+# Function to count number of students who were absent (marks = -1)
+def count_absent(marks):
+    absentees = marks.count(-1)
+    print(f"Number of students absent for the test: {absentees}")
+
+# Function to find and display marks that occurred most frequently
+def display_highest_frequency(marks):
+    valid_marks = [m for m in marks if m != -1]  # Exclude absentees
+    if not valid_marks:
+        print("No valid marks to analyze frequency.")
+    else:
+        freq = Counter(valid_marks)  # Count frequency of each mark
+        max_freq = max(freq.values())  # Find the highest frequency
+        most_frequent = [mark for mark, count in freq.items() if count == max_freq]
+        print("Mark(s) with highest frequency ({} times): {}".format(max_freq, most_frequent))
+
+# ---------------- Main Program ----------------
+
+# Input: total number of students
+n = int(input("Enter number of students: "))
+marks = []
+
+# Input: marks for each student
+print("Enter marks of students (enter -1 if student was absent):")
+for i in range(n):
+    while True:
+        try:
+            m = int(input(f"Student {i + 1}: "))
+            if m >= -1 and m <= 100:
+                marks.append(m)
+                break
+            else:
+                print("Enter a valid mark between 0-100 or -1 for absent.")
+        except ValueError:
+            print("Please enter a valid integer.")
+
+# Display results using the above functions
+print("\n--- Results ---")
+compute_average(marks)
+find_highest_lowest(marks)
+count_absent(marks)
+display_highest_frequency(marks)
