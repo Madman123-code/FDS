@@ -1,0 +1,42 @@
+def selection_sort_and_display_top_five(percentages):
+    n = len(percentages)
+    # Selection Sort
+    for i in range(n):
+        min_index = i
+        for j in range(i + 1, n):
+            if percentages[j] < percentages[min_index]:
+                min_index = j
+        percentages[i], percentages[min_index] = percentages[min_index], percentages[i]
+
+    print("\nTop 5 Scores (using Selection Sort):")
+    top = percentages[-1:-6:-1] if n >= 5 else percentages[::-1]
+    for score in top:
+        print(score)
+
+
+def bubble_sort_and_display_top_five(percentages):
+    n = len(percentages)
+    # Bubble Sort
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if percentages[j] > percentages[j + 1]:
+                percentages[j], percentages[j + 1] = percentages[j + 1], percentages[j]
+
+    print("\nTop 5 Scores (using Bubble Sort):")
+    top = percentages[-1:-6:-1] if n >= 5 else percentages[::-1]
+    for score in top:
+        print(score)
+
+
+# Main program
+n = int(input("Enter number of students: "))
+percentages = []
+
+print("Enter percentages:")
+for i in range(n):
+    val = float(input(f"Enter percentage for student {i + 1}: "))
+    percentages.append(val)
+
+# Run both sorting methods with their own copies of the list
+selection_sort_and_display_top_five(percentages.copy())
+bubble_sort_and_display_top_five(percentages.copy())
